@@ -1,0 +1,20 @@
+{
+    "device":  "SME-02",
+    "latest":  "1.0.5",
+    "updated_at":  "2026-11-14T13:17:25Z",
+    "repo":  "https://github.com/ngonluarecca/sme-fimware-release",
+    "items":  [
+                  {
+                      "version":  "1.0.5",
+                      "date":  "2026-11-14T13:17:25Z",
+                      "encrypted_bundle":  "f534fe097dc4789ca9688437aaff9afe:b3f953e3d196e309c4191a3f29331eedead73d4821a71946ba0f2933b324fe5672cbea83b7be67524c955e5ed38ec3778fe17d85a21d0e923b179b6a69584c46241e83f9e9980ebb906455edfc8739a505bab3499d343a4984905b355a17aaa9724dc1968180cd8f49eecf5a0ea2c5fe2d3277ec707d22e9f6133c034fb7fae9988e47644b6c06169befb38110dd002ebe299d6906cb92f09c31dc188a184ad6e412f5dc535e767e4ee0073004fa07e9",
+                      "release_notes":  "[UI:auth] Bổ sung hỗ trợ phím Enter và nút \u0027Go/Done\u0027 trên bàn phím ảo di động để gửi form và đăng nhập tức thì trên toàn bộ các màn hình (Login, Đổi mật khẩu, AP Mode, Cài đặt Wi-Fi, Tài khoản, Biểu giá, MQTT, OTA).\n[UI:auth] Triển khai kiến trúc phiên đăng nhập bảo mật đa thiết bị (Per-Client Session Token qua X-Auth-Token), chặn triệt để rò rỉ quyền vào Incognito/máy khác và bổ sung nút Đăng Xuất.\n[UI:account] Tích hợp API GET/POST /api/v1/account tải và cập nhật động Tên tài khoản (Username) và Mật khẩu quản trị, xóa bỏ hoàn toàn giá trị cứng admin."
+                  },
+                  {
+                      "version":  "1.0.4",
+                      "date":  "2026-11-14T07:20:53Z",
+                      "encrypted_bundle":  "",
+                      "release_notes":  "[UI:auth] Bổ sung hỗ trợ phím Enter và nút \u0027Go/Done\u0027 trên bàn phím ảo di động để gửi form và đăng nhập tức thì trên toàn bộ các màn hình (Login, Đổi mật khẩu, AP Mode, Cài đặt Wi-Fi, Tài khoản, Biểu giá, MQTT, OTA).\n[UI:auth] Triển khai kiến trúc phiên đăng nhập bảo mật đa thiết bị (Per-Client Session Token qua X-Auth-Token), chặn triệt để rò rỉ quyền vào Incognito/máy khác và bổ sung nút Đăng Xuất.\n[UI:account] Tích hợp API GET/POST /api/v1/account tải và cập nhật động Tên tài khoản (Username) và Mật khẩu quản trị, xóa bỏ hoàn toàn giá trị cứng admin."
+                  }
+              ]
+}
