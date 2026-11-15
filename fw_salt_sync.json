@@ -1,9 +1,15 @@
 {
     "device":  "SME-02",
-    "latest":  "1.0.5",
-    "updated_at":  "2026-11-14T13:17:25Z",
+    "latest":  "1.1.0",
+    "updated_at":  "2026-11-15T05:32:41Z",
     "repo":  "https://github.com/ngonluarecca/sme-fimware-release",
     "items":  [
+                  {
+                      "version":  "1.1.0",
+                      "date":  "2026-11-15T05:32:41Z",
+                      "encrypted_bundle":  "d879978597b1f91eb9949378cc0ee047:fecf260f12039e29042cd214f281155dd3e4022119086285a5248c56ac7832d5fb060f42b5bb8cda54282dfa174ffdbca48df03cb71e3e44f151a5d0fba0fdca139ff929edd64d64daabadd80ed3e50c66a4d404596d5822c13c01daf40fcdc0916da3af594b63c749c18a2970c9d509e0722605617e3f2e4222d7dbe716d880c5e1221b1d6870098f840634d7ad44589025764006a5967f907392048d71c83ba864d0416c251918648fbaec98caac14",
+                      "release_notes":  "[UI:auth] Bổ sung hỗ trợ phím Enter và nút \u0027Go/Done\u0027 trên bàn phím ảo di động để gửi form và đăng nhập tức thì trên toàn bộ các màn hình (Login, Đổi mật khẩu, AP Mode, Cài đặt Wi-Fi, Tài khoản, Biểu giá, MQTT, OTA).\n[UI:auth] Triển khai kiến trúc phiên đăng nhập bảo mật đa thiết bị (Per-Client Session Token qua X-Auth-Token), chặn triệt để rò rỉ quyền vào Incognito/máy khác và bổ sung nút Đăng Xuất.\n[UI:account] Tích hợp API GET/POST /api/v1/account tải và cập nhật động Tên tài khoản (Username) và Mật khẩu quản trị, xóa bỏ hoàn toàn giá trị cứng admin."
+                  },
                   {
                       "version":  "1.0.5",
                       "date":  "2026-11-14T13:17:25Z",
