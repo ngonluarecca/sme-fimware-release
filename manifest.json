@@ -1,8 +1,22 @@
 {
     "device":  "SME-02",
-    "latest":  "1.2.0",
+    "latest":  "1.2.1",
     "repo":  "https://github.com/ngonluarecca/sme-fimware-release",
     "versions":  [
+                     {
+                         "version":  "1.2.1",
+                         "date":  "2026-11-16T15:08:52Z",
+                         "salt_version":  "V2.1.0",
+                         "ota_encrypted":  true,
+                         "fw_size":  1756384,
+                         "minimal_size":  978208,
+                         "fw_url":  "https://raw.githubusercontent.com/ngonluarecca/sme-fimware-release/main/releases/v1.2.1/firmware.bin",
+                         "minimal_url":  "https://raw.githubusercontent.com/ngonluarecca/sme-fimware-release/main/releases/v1.2.1/firmware_minimal.bin",
+                         "encrypted_bundle":  "0d93be46063cc06fe44a45edf8c1231f:18f103a720796bce925bd20e22bd17fb9278424c961f25cb061722dd7d4750806864afafed09c0836f221850e6b848e012c5282521826ace419dc472400203af773cd97152535cd6cf93279980805ec1766c85997aee52d2f6f049e970dcec0b76f601d692199df29777dd1e62ef7f4066efd5f903158c9f944ea1270e50fb2c065b964a796eb550f32479d5636d593eeeec6a093994ed4d5aeddc6ef1e6c73626d2f12dc9803c3e0a381b0ec3ad4b7c8095a0801dd37386568d9c4dedea3c5f",
+                         "changelog":  [
+                                           "[Fix] Khắc phục lỗi `release.ps1` đặt `$OutputEncoding` có UTF-8 BOM làm hỏng `git credential fill`, khiến bỏ qua bước tạo GitHub Release cho Source Repo và OTA Repo khi chạy `release.bat`."
+                                       ]
+                     },
                      {
                          "version":  "1.2.0",
                          "date":  "2026-11-16T14:57:03Z",

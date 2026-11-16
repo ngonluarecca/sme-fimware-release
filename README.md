@@ -14,6 +14,9 @@ Repository này **chỉ chứa các file nhị phân (`.bin`) và cấu hình `m
 
 ## [NOTES] Lịch Sử Phiên Bản & So Sánh Tính Năng Mới
 
+### v1.2.1 (2026-11-16) - Salt: `V2.1.0` | FW: 1715 KB | AES-256 Encrypted
+- [Fix] Khắc phục lỗi `release.ps1` đặt `$OutputEncoding` có UTF-8 BOM làm hỏng `git credential fill`, khiến bỏ qua bước tạo GitHub Release cho Source Repo và OTA Repo khi chạy `release.bat`.
+
 ### v1.2.0 (2026-11-16) - Salt: `V2.1.0` | FW: 1715 KB | AES-256 Encrypted
 - [UI:system] & [Backend] Bổ sung API `GET /api/v1/system/public_ip` (cache 5 phút, non-blocking khi offline) kèm fallback phía trình duyệt để hiển thị **IP Public** trong bảng Thông Tin Hệ Thống (Tab 6).
 - [UI:system] & [Backend] Bổ sung **Quản lý Thời gian RTC & Múi giờ** (`GET/POST /api/v1/system/time`) hỗ trợ múi giờ `UTC-12..UTC+14`, đồng bộ NTP online (`pool.ntp.org` + fallback), tự bù trôi DS3231 mỗi 12h (chỉ ghi khi lệch `>= 2s`), và cài giờ Offline (theo trình duyệt hoặc nhập tay).
