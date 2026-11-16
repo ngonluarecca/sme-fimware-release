@@ -1,9 +1,15 @@
 {
     "device":  "SME-02",
-    "latest":  "1.1.0",
-    "updated_at":  "2026-11-15T05:32:41Z",
+    "latest":  "1.2.0",
+    "updated_at":  "2026-11-16T14:57:03Z",
     "repo":  "https://github.com/ngonluarecca/sme-fimware-release",
     "items":  [
+                  {
+                      "version":  "1.2.0",
+                      "date":  "2026-11-16T14:57:03Z",
+                      "encrypted_bundle":  "85e30b1e82bf42d31e47414db625447e:84c72d2cc477fef1800669773895f949f87341c8e430800a53777a6d3e6ae43e77be526d218fcd78022fa49da358ad59b6b2b8aea5e01efc183388287f780ca4a1ad029a048a1a814a24d87c4a99e93586bd1e1ccd425319f98c7bbc617ff1ec48ccbbfaea46afd867212adc12ebc2123f8e6f95fab9bd433e1ff59e8fa1a019abec96fa0ec37581b3b832d6c57a0087fda4c221401e37645394b197375485882309302068395f79c54e1c5578fdaf74650c40ef830e7db503bb45d09fd2385c",
+                      "release_notes":  "[UI:system] \u0026 [Backend] Bổ sung API `GET /api/v1/system/public_ip` (cache 5 phút, non-blocking khi offline) kèm fallback phía trình duyệt để hiển thị **IP Public** trong bảng Thông Tin Hệ Thống (Tab 6).\n[UI:system] \u0026 [Backend] Bổ sung **Quản lý Thời gian RTC \u0026 Múi giờ** (`GET/POST /api/v1/system/time`) hỗ trợ múi giờ `UTC-12..UTC+14`, đồng bộ NTP online (`pool.ntp.org` + fallback), tự bù trôi DS3231 mỗi 12h (chỉ ghi khi lệch `\u003e= 2s`), và cài giờ Offline (theo trình duyệt hoặc nhập tay).\n[UI:dashboard] \u0026 [Backend] Nâng cấp **Biểu đồ phụ tải 24 giờ thật** (`GET /api/v1/history/24h`) giữ 1440 mẫu hoàn toàn trên **RAM** (triệt tiêu ghi Flash định kỳ), đồng thời bổ sung kho **Lịch sử điện năng \u0026 tiền điện hằng ngày** `/daily_hist.bin` trên LittleFS (~3.000 ngày / \u003e8 năm) cùng mục **Tra Cứu \u0026 So Sánh Theo Ngày / Tháng / Quý / Năm** (`GET /api/v1/history/energy`)."
+                  },
                   {
                       "version":  "1.1.0",
                       "date":  "2026-11-15T05:32:41Z",

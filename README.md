@@ -8,13 +8,36 @@ Repository này **chỉ chứa các file nhị phân (`.bin`) và cấu hình `m
    ```
    https://github.com/ngonluarecca/sme-fimware-release
    ```
-3. Nhấn **Tải DS Phiên Bản** -> Chọn phiên bản mong muốn -> Bấm **Kiểm Tra Dung Lượng** -> Nhấn **Tải & Cập Nhật (FW + System)**.
+3. Nhấn **Tải DS Phiên Bản** -> Chọn phiên bản mong muốn -> Bấm **Kiểm Tra Dung Lượng** -> Nhấn **Tải & Cập Nhật Firmware**.
 
 ---
 
 ## [NOTES] Lịch Sử Phiên Bản & So Sánh Tính Năng Mới
 
-### v1.1.0 (2026-11-15) - Salt: `v1` | FW: 1608 KB | System FS: 128 KB
+### v1.2.0 (2026-11-16) - Salt: `V2.1.0` | FW: 1715 KB | AES-256 Encrypted
+- [UI:system] & [Backend] Bổ sung API `GET /api/v1/system/public_ip` (cache 5 phút, non-blocking khi offline) kèm fallback phía trình duyệt để hiển thị **IP Public** trong bảng Thông Tin Hệ Thống (Tab 6).
+- [UI:system] & [Backend] Bổ sung **Quản lý Thời gian RTC & Múi giờ** (`GET/POST /api/v1/system/time`) hỗ trợ múi giờ `UTC-12..UTC+14`, đồng bộ NTP online (`pool.ntp.org` + fallback), tự bù trôi DS3231 mỗi 12h (chỉ ghi khi lệch `>= 2s`), và cài giờ Offline (theo trình duyệt hoặc nhập tay).
+- [UI:dashboard] & [Backend] Nâng cấp **Biểu đồ phụ tải 24 giờ thật** (`GET /api/v1/history/24h`) giữ 1440 mẫu hoàn toàn trên **RAM** (triệt tiêu ghi Flash định kỳ), đồng thời bổ sung kho **Lịch sử điện năng & tiền điện hằng ngày** `/daily_hist.bin` trên LittleFS (~3.000 ngày / >8 năm) cùng mục **Tra Cứu & So Sánh Theo Ngày / Tháng / Quý / Năm** (`GET /api/v1/history/energy`).
+- [Backend] & [UI:system] Nhúng hoàn toàn Web UI vào Firmware (`EMBEDDED_INDEX_HTML_GZ`), loại bỏ `littlefs.bin` / `uploadfs` / tùy chọn nạp Filesystem khỏi quy trình build (`load_env.py`, `flash_all.bat`, `build_ota.bat`, `tag.ps1`, `release.ps1`, `esp32minimal`, OTA UI) để giữ nguyên dữ liệu lịch sử khi cập nhật Firmware.
+- [Chore] & [UI:system] Gỡ bỏ toàn bộ thẻ **Kiểm Tra Kết Nối Phần Cứng** (`GET /api/v1/hardware/diag`), banner WebSocket port 8084 và hàm quét I2C/Modbus chẩn đoán chuyên sâu (`scanI2cBus`, `probeNow`) để tiết kiệm RAM/Flash; làm sạch log Serial (`115200` baud) chỉ xuất thông tin cơ bản (IP, RTC, công tơ, MQTT) và tuyệt đối không in key/token/mật khẩu/Salt/SSID/URL nhạy cảm.
+- [Backend] & [Chore] Tích hợp **mã hóa OTA tệp `.bin`** định dạng `SMEOTA01` (AES-256-CTR + HMAC-SHA256 dùng `LICENSE_SALT_SECRET` hoặc `OTA_ENC_SECRET` trong `.env`) cho cả `firmware_vX.Y.Z.bin` và `firmware_minimal_vX.Y.Z.bin` trong `build_ota.bat`, `tag.ps1`, `release.ps1` kèm module giải mã luồng `OtaFirmwareDecryptor` (`mbedtls`) trên cả `esp32dev` và `esp32minimal`.
+- [UI:ap] Bổ sung biểu ngữ gợi ý chuyển sang Safari/Chrome khi mở trong popup Wi-Fi và tích hợp mã QR ngoại tuyến (SVG thuần JS) hiển thị trực tiếp link IP mới của công tơ.
+- [Backend] Bổ sung đầy đủ các trường MQTT `today_cost`, `yesterday_cost`, `last_month_kwh`, `last_month_cost` vào topic Telemetry và mở rộng Home Assistant Auto Discovery lên 15 entity (công suất, năng lượng, tiền điện từng kỳ).
+- [Backend] & [Perf] Tích hợp Hardware Task Watchdog (`esp_task_wdt` 30s cho Core 0/Core 1, vẫn an toàn khi đồng bộ NTP/tải OTA), Self-Healing Heap Guard tự lưu NVS/lịch sử và khởi động lại khi phân mảnh RAM kéo dài, rút timeout TCP/MQTT xuống `2s` và chuyển broadcast WebSocket/MQTT sang stack buffer giảm phân mảnh Heap.
+- [Fix] Khắc phục lỗi tràn `millis()` sau ~49.7 ngày tại bộ đếm grace AP SoftAP (`wifi_manager`), bộ đếm khóa đăng nhập Brute-force (`web_server`) và retry OTA 2 bước (`main.cpp`).
+- [Fix] & [Backend] Khắc phục triệt để lỗi WebSocket cổng `8084` không kết nối được (do copy nông đối tượng `WebSocketsServer`), đồng thời đồng bộ động chu kỳ cập nhật (`1–3600s`, kèm chú thích Min/Max ở Tab 4) giữa PZEM, WebSocket, MQTT và HTTP fallback.
+- [Fix] Đồng bộ lưu `lastRawPzemKwh` (`saveRolloverState`) cùng chu kỳ 60s với `saveEnergyCounters` trong `main.cpp` để tránh cộng lặp điện năng sau khi mất điện/khởi động lại.
+- [UI:api] & [Backend] Đưa MQTT Broker mặc định về **TCP `1883`** (gỡ nhãn nhầm 1884/WSS), bổ sung hot-reload kết nối lại ngay khi bấm Lưu mà không cần khởi động lại ESP32, và hiển thị trực tiếp trạng thái/mã lỗi kết nối MQTT (`-2 TCP`, `4 Auth`, `5 ACL`, ...).
+- [Fix] & [Backend] Nâng cấp driver DS3231 và PZEM-004T v3.0 với khóa FreeRTOS mutex an toàn đa lõi, tự phục hồi hot-plug I2C, resync khung Modbus chống lệch byte nhiễu, tự dò slave `0xF8`/`0x01` và tự đồng bộ Dashboard qua HTTP Polling 5s (`/api/v1/telemetry`) khi WebSocket `8084` gián đoạn.
+- [UI:ap] & [Backend] Khắc phục lỗi mất link IP/mDNS khi rời popup Wi-Fi iOS/Android bằng nút **Sao Chép Link** một chạm (chạy trên HTTP LAN), giữ link mở sang tab trình duyệt riêng và API `POST /api/v1/captive/release` trả `Success` có chủ đích cho iOS CNA.
+- [UI:auth] Khắc phục lỗi mất focus khi bấm nút ẩn/hiện mật khẩu (`👁️`/`🙈`) và bổ sung xử lý phím `Enter`/`NumpadEnter` đồng nhất trên màn hình đăng nhập và toàn bộ biểu mẫu.
+- [UI:ota] Loại bỏ khung ghi chú cập nhật dài dòng (`NỘI DUNG CẬP NHẬT`) dưới mục chọn phiên bản OTA giúp giao diện gọn nhẹ hơn.
+- [UI:system] Gỡ bỏ 3 dòng thông tin phần cứng tĩnh (`Đồng hồ RTC`, `Module Đo PZEM`, `Nút Bấm & LED`) khỏi bảng Thông Tin Hệ Thống (Tab 6) để giao diện gọn gàng hơn.
+- [UI:footer] Rút gọn dòng chân trang thành `Công Tơ Điện Tử Thông Minh SME-02 © 2026`.
+- [UI:license] Sửa lỗi nút **Sao Chép MAC** (cổng khóa License) và **Xuất Thông Tin Chip** (Tab 3) không hoạt động trên HTTP nội bộ (`192.168.x.x` / `.local`) bằng cơ chế fallback `execCommand('copy')` đồng bộ + `prompt` thủ công.
+- [Chore] Tái thiết kế `esp32minimal` (`firmware_minimal.bin`) thành firmware recovery/OTA độc lập (`src/minimal_main.cpp`): loại bỏ đăng nhập và toàn bộ module đo/MQTT/WS/UI nặng, chỉ giữ kết nối Wi-Fi/mDNS/AP dự phòng và 1 trang nạp **Firmware (.bin)** duy nhất (hỗ trợ giải mã gói OTA).
+
+### v1.1.0 (2026-11-15) - Salt: `v1` | FW: 1608 KB
 - [UI:auth] Bổ sung hỗ trợ phím Enter và nút 'Go/Done' trên bàn phím ảo di động để gửi form và đăng nhập tức thì trên toàn bộ các màn hình (Login, Đổi mật khẩu, AP Mode, Cài đặt Wi-Fi, Tài khoản, Biểu giá, MQTT, OTA).
 - [UI:auth] Triển khai kiến trúc phiên đăng nhập bảo mật đa thiết bị (Per-Client Session Token qua X-Auth-Token), chặn triệt để rò rỉ quyền vào Incognito/máy khác và bổ sung nút Đăng Xuất.
 - [UI:account] Tích hợp API GET/POST /api/v1/account tải và cập nhật động Tên tài khoản (Username) và Mật khẩu quản trị, xóa bỏ hoàn toàn giá trị cứng admin.
@@ -73,7 +96,7 @@ Repository này **chỉ chứa các file nhị phân (`.bin`) và cấu hình `m
 - [Fix] Bổ sung thư viện esp_chip_info.h và chuẩn hóa format specifier tương thích ESP-IDF v5 (Arduino core 3.x).
 - [Fix] Cấu hình c_cpp_properties.json, compile_commands.json và stdint.h khắc phục lỗi clang thiếu Arduino.h trên VSCode.
 
-### v1.0.5 (2026-11-14) - Salt: `v1` | FW: 1608 KB | System FS: 128 KB
+### v1.0.5 (2026-11-14) - Salt: `v1` | FW: 1608 KB
 - [UI:auth] Bổ sung hỗ trợ phím Enter và nút 'Go/Done' trên bàn phím ảo di động để gửi form và đăng nhập tức thì trên toàn bộ các màn hình (Login, Đổi mật khẩu, AP Mode, Cài đặt Wi-Fi, Tài khoản, Biểu giá, MQTT, OTA).
 - [UI:auth] Triển khai kiến trúc phiên đăng nhập bảo mật đa thiết bị (Per-Client Session Token qua X-Auth-Token), chặn triệt để rò rỉ quyền vào Incognito/máy khác và bổ sung nút Đăng Xuất.
 - [UI:account] Tích hợp API GET/POST /api/v1/account tải và cập nhật động Tên tài khoản (Username) và Mật khẩu quản trị, xóa bỏ hoàn toàn giá trị cứng admin.
@@ -132,7 +155,7 @@ Repository này **chỉ chứa các file nhị phân (`.bin`) và cấu hình `m
 - [Fix] Bổ sung thư viện esp_chip_info.h và chuẩn hóa format specifier tương thích ESP-IDF v5 (Arduino core 3.x).
 - [Fix] Cấu hình c_cpp_properties.json, compile_commands.json và stdint.h khắc phục lỗi clang thiếu Arduino.h trên VSCode.
 
-### v1.0.4 (2026-11-14) - Salt: `v1` | FW: 1608 KB | System FS: 128 KB
+### v1.0.4 (2026-11-14) - Salt: `v1` | FW: 1608 KB
 - [UI:auth] Bổ sung hỗ trợ phím Enter và nút 'Go/Done' trên bàn phím ảo di động để gửi form và đăng nhập tức thì trên toàn bộ các màn hình (Login, Đổi mật khẩu, AP Mode, Cài đặt Wi-Fi, Tài khoản, Biểu giá, MQTT, OTA).
 - [UI:auth] Triển khai kiến trúc phiên đăng nhập bảo mật đa thiết bị (Per-Client Session Token qua X-Auth-Token), chặn triệt để rò rỉ quyền vào Incognito/máy khác và bổ sung nút Đăng Xuất.
 - [UI:account] Tích hợp API GET/POST /api/v1/account tải và cập nhật động Tên tài khoản (Username) và Mật khẩu quản trị, xóa bỏ hoàn toàn giá trị cứng admin.
