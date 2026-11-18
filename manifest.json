@@ -1,8 +1,27 @@
 {
     "device":  "SME-02",
-    "latest":  "1.2.1",
+    "latest":  "1.2.2",
     "repo":  "https://github.com/ngonluarecca/sme-fimware-release",
     "versions":  [
+                     {
+                         "version":  "1.2.2",
+                         "date":  "2026-11-18T00:00:40Z",
+                         "salt_version":  "V2.1.0",
+                         "ota_encrypted":  true,
+                         "fw_size":  1863904,
+                         "minimal_size":  978208,
+                         "fw_url":  "https://raw.githubusercontent.com/ngonluarecca/sme-fimware-release/main/releases/v1.2.2/firmware.bin",
+                         "minimal_url":  "https://raw.githubusercontent.com/ngonluarecca/sme-fimware-release/main/releases/v1.2.2/firmware_minimal.bin",
+                         "encrypted_bundle":  "d17ebd54739468956b60d3e8377db711:bdcb9b7f652e657b78d38a34fa990e22313a625d22e66ca20647140230ccab4418ad5fa91f83e12e671c94ac0c6646ecb31a0c0e8960cce0c005a5a4f49b911837ff41b21a238bf5265c60a1905f6c06e8b89695ea40f3b71535c5e1fa28bbcf0cfb03a2b9e04e5e1e648defc7601b643029430bc7a0e8cd5407189425376a9eb93426cde48ddd86f6cb333452639b19e68b021688b46977d7fec715984e9f901c4e2bfbcd9d9144711e2e8ddfdd7dddbec72ccfec8b2b4a7c10b67ece36ec51",
+                         "changelog":  [
+                                           "[UI:tariff] Bổ sung chế độ chọn điện 1 đơn giá cố định nhà trọ (`isFixedRate` / `fixed_vnd`) và cấu hình thuế VAT (`vat`) trên tab Biểu giá.",
+                                           "[UI:app-sync] Thêm thẻ Ghép Nối App Nhà Trọ trên tab API \u0026 MQTT hiển thị QR offline (không nhúng PIN), đổi/hiện PIN 6-8 số, hủy ghép nối, public URL, webhook URL và trạng thái Outbox.",
+                                           "[Backend] Triển khai `SyncCrypto`, `SyncOutbox` (`/sync_outbox.bin` Store-and-Forward 512 slot + ACK HMAC), giao thức MQTT 2 chiều (`discovery`/`outbox`/`cmd`/`pair`/`history_pull`) và API `/api/v1/app/*` hỗ trợ cả NAS Bridge lẫn Port-Forward (`direct_http`).",
+                                           "[DB] Bổ sung dịch vụ Docker `sme-bridge/` (hỗ trợ kép `supabase` \u0026 `postgres` NAS), schema idempotent `supabase/schema_meter_sync.sql` cho nhiều khu trọ và tài liệu hợp đồng tích hợp PWA.",
+                                           "[Fix] Chuẩn hóa logic chốt số qua `BillingOps::executeCutoff` để tính đúng tiền kỳ từ `energySinceCutoff`, giữ nguyên bộ đếm `energyThisMonth` và đồng nhất `POST /api/v1/cutoff`.",
+                                           "[Fix] Bắt buộc xác thực `X-Auth-Token` / `Bearer` trên các API quản trị LAN, `/update`, WebSocket `8084` (`?token=`) và kết nối nút reset bộ đếm tới `/api/v1/reset_counters` (giữ nguyên tương thích AP SmartConfig)."
+                                       ]
+                     },
                      {
                          "version":  "1.2.1",
                          "date":  "2026-11-16T15:08:52Z",

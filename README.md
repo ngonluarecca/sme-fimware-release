@@ -14,6 +14,14 @@ Repository này **chỉ chứa các file nhị phân (`.bin`) và cấu hình `m
 
 ## [NOTES] Lịch Sử Phiên Bản & So Sánh Tính Năng Mới
 
+### v1.2.2 (2026-11-18) - Salt: `V2.1.0` | FW: 1820 KB | AES-256 Encrypted
+- [UI:tariff] Bổ sung chế độ chọn điện 1 đơn giá cố định nhà trọ (`isFixedRate` / `fixed_vnd`) và cấu hình thuế VAT (`vat`) trên tab Biểu giá.
+- [UI:app-sync] Thêm thẻ Ghép Nối App Nhà Trọ trên tab API & MQTT hiển thị QR offline (không nhúng PIN), đổi/hiện PIN 6-8 số, hủy ghép nối, public URL, webhook URL và trạng thái Outbox.
+- [Backend] Triển khai `SyncCrypto`, `SyncOutbox` (`/sync_outbox.bin` Store-and-Forward 512 slot + ACK HMAC), giao thức MQTT 2 chiều (`discovery`/`outbox`/`cmd`/`pair`/`history_pull`) và API `/api/v1/app/*` hỗ trợ cả NAS Bridge lẫn Port-Forward (`direct_http`).
+- [DB] Bổ sung dịch vụ Docker `sme-bridge/` (hỗ trợ kép `supabase` & `postgres` NAS), schema idempotent `supabase/schema_meter_sync.sql` cho nhiều khu trọ và tài liệu hợp đồng tích hợp PWA.
+- [Fix] Chuẩn hóa logic chốt số qua `BillingOps::executeCutoff` để tính đúng tiền kỳ từ `energySinceCutoff`, giữ nguyên bộ đếm `energyThisMonth` và đồng nhất `POST /api/v1/cutoff`.
+- [Fix] Bắt buộc xác thực `X-Auth-Token` / `Bearer` trên các API quản trị LAN, `/update`, WebSocket `8084` (`?token=`) và kết nối nút reset bộ đếm tới `/api/v1/reset_counters` (giữ nguyên tương thích AP SmartConfig).
+
 ### v1.2.1 (2026-11-16) - Salt: `V2.1.0` | FW: 1715 KB | AES-256 Encrypted
 - [Fix] Khắc phục lỗi `release.ps1` đặt `$OutputEncoding` có UTF-8 BOM làm hỏng `git credential fill`, khiến bỏ qua bước tạo GitHub Release cho Source Repo và OTA Repo khi chạy `release.bat`.
 
