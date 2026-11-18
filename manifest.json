@@ -1,8 +1,23 @@
 {
     "device":  "SME-02",
-    "latest":  "1.2.2",
+    "latest":  "1.2.3",
     "repo":  "https://github.com/ngonluarecca/sme-fimware-release",
     "versions":  [
+                     {
+                         "version":  "1.2.3",
+                         "date":  "2026-11-18T00:19:51Z",
+                         "salt_version":  "V2.1.0",
+                         "ota_encrypted":  true,
+                         "fw_size":  1864768,
+                         "minimal_size":  978208,
+                         "fw_url":  "https://raw.githubusercontent.com/ngonluarecca/sme-fimware-release/main/releases/v1.2.3/firmware.bin",
+                         "minimal_url":  "https://raw.githubusercontent.com/ngonluarecca/sme-fimware-release/main/releases/v1.2.3/firmware_minimal.bin",
+                         "encrypted_bundle":  "32c0a6b84d2c5e9fddad6d7d841b664b:5e9347414a873c064da52437a3b65cc92409519d13d6147b1f7661755d13aa2aaffdea9ebccae32c5c6f037b177963887dd7b4ca9b167ce053484679bdce3c45f35f5e5341ccc2c4fbcf8d0f1550a1cfbe2c6ef986f23e241e545f5171acd3d81052edd17e758c2e156f362170e6157135d95c021b96a03d24866f8a2a4575bd8b4a9c1e22ba354aba725ef85b0546eeaeceb27a9102e05ec71e4d1fbc1b726d9b8eab1210bf25898f6d285db9ccb9c0c9321af468a3cc5cb63258567bebe064",
+                         "changelog":  [
+                                           "[UI:ota] Tải `manifest.json` theo yêu cầu qua commit SHA mới nhất (GitHub API + fallback `raw`), khắc phục độ trễ cache 5 phút của CDN và cập nhật đúng URL file `.bin`.",
+                                           "[Perf] Gỡ bỏ tự động tải danh sách phiên bản OTA khi mở trang/đổi tab; chỉ lưu tạm danh sách trong RAM trình duyệt khi người dùng bấm nút **Tải DS Phiên Bản** (không lưu trên ESP32)."
+                                       ]
+                     },
                      {
                          "version":  "1.2.2",
                          "date":  "2026-11-18T00:00:40Z",

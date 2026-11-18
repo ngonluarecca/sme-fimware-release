@@ -14,6 +14,10 @@ Repository này **chỉ chứa các file nhị phân (`.bin`) và cấu hình `m
 
 ## [NOTES] Lịch Sử Phiên Bản & So Sánh Tính Năng Mới
 
+### v1.2.3 (2026-11-18) - Salt: `V2.1.0` | FW: 1821 KB | AES-256 Encrypted
+- [UI:ota] Tải `manifest.json` theo yêu cầu qua commit SHA mới nhất (GitHub API + fallback `raw`), khắc phục độ trễ cache 5 phút của CDN và cập nhật đúng URL file `.bin`.
+- [Perf] Gỡ bỏ tự động tải danh sách phiên bản OTA khi mở trang/đổi tab; chỉ lưu tạm danh sách trong RAM trình duyệt khi người dùng bấm nút **Tải DS Phiên Bản** (không lưu trên ESP32).
+
 ### v1.2.2 (2026-11-18) - Salt: `V2.1.0` | FW: 1820 KB | AES-256 Encrypted
 - [UI:tariff] Bổ sung chế độ chọn điện 1 đơn giá cố định nhà trọ (`isFixedRate` / `fixed_vnd`) và cấu hình thuế VAT (`vat`) trên tab Biểu giá.
 - [UI:app-sync] Thêm thẻ Ghép Nối App Nhà Trọ trên tab API & MQTT hiển thị QR offline (không nhúng PIN), đổi/hiện PIN 6-8 số, hủy ghép nối, public URL, webhook URL và trạng thái Outbox.
