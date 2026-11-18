@@ -1,8 +1,25 @@
 {
     "device":  "SME-02",
-    "latest":  "1.2.3",
+    "latest":  "1.2.7",
     "repo":  "https://github.com/ngonluarecca/sme-fimware-release",
     "versions":  [
+                     {
+                         "version":  "1.2.7",
+                         "date":  "2026-11-18T06:14:33Z",
+                         "salt_version":  "V2.1.0",
+                         "ota_encrypted":  true,
+                         "fw_size":  1932608,
+                         "minimal_size":  978208,
+                         "fw_url":  "https://raw.githubusercontent.com/ngonluarecca/sme-fimware-release/main/releases/v1.2.7/firmware.bin",
+                         "minimal_url":  "https://raw.githubusercontent.com/ngonluarecca/sme-fimware-release/main/releases/v1.2.7/firmware_minimal.bin",
+                         "encrypted_bundle":  "30f5a99852d6743658299afd44c1c46a:eb93318fbbf5f8cf9a413c7c68e3e1a01f0b68da35f83a431cd5ffc57abde3579464e5098d19253ca9e83f87bb36686494611851558b6c01e4450a34dae01adc35d4bf241a721a3ec2eda6d6306524eb3d852e734e7a30697075331ca77ff972c964b004af8f1decd27d795526615b781f3d1b5804e129019c05aa889e91935ae59380842581f2295158a7db294ec497fa0cfe16561cac38046558f16b8c6b873f4f5a2a6acf9e1984d58366ce616a8d1433fe7323fcf2ff822f07ddc8249e83",
+                         "changelog":  [
+                                           "[UI:backup] Hoàn thiện Sao lưu \u0026 Phục hồi cấu hình dùng chung (`sme02_cfg_\u003cYYYYMMDD\u003e.json`) kèm popup chọn mã hóa/xác nhận mật khẩu (có nút 👁️), tự lưu \u0026 khởi động lại ESP32 sau khi nạp.",
+                                           "[Backend] Triển khai module `ConfigBackup` (`/api/v1/config/export`, `/api/v1/config/import`) hỗ trợ đặt mật khẩu `AES-256-CTR + HMAC-SHA256` hoặc JSON thường tự động mã hóa các trường nhạy cảm (`enc1:...` cho `wifi.pass1..3`, `mqtt.pass`, `api.bearer_token`); bỏ qua trường thừa/thiếu và tách khỏi `MAC`/`License`/`AppSync`/kWh.",
+                                           "[Fix] Đồng bộ cờ `is_default_pwd` khi phục hồi tài khoản Web qua file cấu hình (vẫn giữ nguyên luồng đổi mật khẩu lần đầu và reset về mặc định khi Factory Reset).",
+                                           "[Chore] Loại bỏ trường dư `recovery_email` không sử dụng khỏi `StorageManager`, `/api/v1/account`, `ConfigBackup` và rút gọn popup xuất cấu hình `.json`."
+                                       ]
+                     },
                      {
                          "version":  "1.2.3",
                          "date":  "2026-11-18T00:19:51Z",

@@ -14,6 +14,12 @@ Repository này **chỉ chứa các file nhị phân (`.bin`) và cấu hình `m
 
 ## [NOTES] Lịch Sử Phiên Bản & So Sánh Tính Năng Mới
 
+### v1.2.7 (2026-11-18) - Salt: `V2.1.0` | FW: 1887 KB | AES-256 Encrypted
+- [UI:backup] Hoàn thiện Sao lưu & Phục hồi cấu hình dùng chung (`sme02_cfg_<YYYYMMDD>.json`) kèm popup chọn mã hóa/xác nhận mật khẩu (có nút 👁️), tự lưu & khởi động lại ESP32 sau khi nạp.
+- [Backend] Triển khai module `ConfigBackup` (`/api/v1/config/export`, `/api/v1/config/import`) hỗ trợ đặt mật khẩu `AES-256-CTR + HMAC-SHA256` hoặc JSON thường tự động mã hóa các trường nhạy cảm (`enc1:...` cho `wifi.pass1..3`, `mqtt.pass`, `api.bearer_token`); bỏ qua trường thừa/thiếu và tách khỏi `MAC`/`License`/`AppSync`/kWh.
+- [Fix] Đồng bộ cờ `is_default_pwd` khi phục hồi tài khoản Web qua file cấu hình (vẫn giữ nguyên luồng đổi mật khẩu lần đầu và reset về mặc định khi Factory Reset).
+- [Chore] Loại bỏ trường dư `recovery_email` không sử dụng khỏi `StorageManager`, `/api/v1/account`, `ConfigBackup` và rút gọn popup xuất cấu hình `.json`.
+
 ### v1.2.3 (2026-11-18) - Salt: `V2.1.0` | FW: 1821 KB | AES-256 Encrypted
 - [UI:ota] Tải `manifest.json` theo yêu cầu qua commit SHA mới nhất (GitHub API + fallback `raw`), khắc phục độ trễ cache 5 phút của CDN và cập nhật đúng URL file `.bin`.
 - [Perf] Gỡ bỏ tự động tải danh sách phiên bản OTA khi mở trang/đổi tab; chỉ lưu tạm danh sách trong RAM trình duyệt khi người dùng bấm nút **Tải DS Phiên Bản** (không lưu trên ESP32).
