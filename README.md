@@ -14,6 +14,10 @@ Repository này **chỉ chứa các file nhị phân (`.bin`) và cấu hình `m
 
 ## [NOTES] Lịch Sử Phiên Bản & So Sánh Tính Năng Mới
 
+### v1.3.0 (2026-11-19) - Salt: `V2.1.0` | FW: 1887 KB | AES-256 Encrypted
+- Bản phát hành ổn định v1.3.0.
+- Cập nhật tối ưu hiệu năng và sửa các lỗi phát sinh.
+
 ### v1.2.7 (2026-11-18) - Salt: `V2.1.0` | FW: 1887 KB | AES-256 Encrypted
 - [UI:backup] Hoàn thiện Sao lưu & Phục hồi cấu hình dùng chung (`sme02_cfg_<YYYYMMDD>.json`) kèm popup chọn mã hóa/xác nhận mật khẩu (có nút 👁️), tự lưu & khởi động lại ESP32 sau khi nạp.
 - [Backend] Triển khai module `ConfigBackup` (`/api/v1/config/export`, `/api/v1/config/import`) hỗ trợ đặt mật khẩu `AES-256-CTR + HMAC-SHA256` hoặc JSON thường tự động mã hóa các trường nhạy cảm (`enc1:...` cho `wifi.pass1..3`, `mqtt.pass`, `api.bearer_token`); bỏ qua trường thừa/thiếu và tách khỏi `MAC`/`License`/`AppSync`/kWh.
